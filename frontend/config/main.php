@@ -11,8 +11,10 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+//    'homeUrl' => '/',
     'components' => [
         'request' => [
+//            'baseUrl' => '',
             'csrfParam' => '_csrf-frontend',
         ],
         'user' => [
@@ -36,14 +38,18 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'rules' => [
-            ],
+            'rules' => require(__DIR__ . '/routes.php'),
         ],
-        */
+        /**
+         * Компонент для работы с текущей локацией
+         */
+        'location' => [
+            'class' => 'frontend\components\Location'
+        ],
+
     ],
     'params' => $params,
 ];

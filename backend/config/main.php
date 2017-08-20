@@ -11,13 +11,16 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [],
+//    'homeUrl' => '/admin',
     'components' => [
         'request' => [
+//            'baseUrl' => '/admin',
             'csrfParam' => '_csrf-backend',
         ],
         'user' => [
+            'class' => 'common\models\WebUser',
             'identityClass' => 'common\models\User',
+            'loginUrl' => '/login',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
         ],
@@ -37,14 +40,50 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
+        'view' => [
+            'theme' => [
+                'pathMap' => [
+                   '@app/views' => '@app/views/themes/admin-lte'
+                ],
+            ],
+        ],
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'login' => 'site/login',
+                'categories/children-element-<id:\d+>' => 'categories/index',
+                'categories/edit-<id:\d+>' => 'categories/edit-category',
+                'ads-params' => 'params/index',
+                'ads-params/<action>' => 'params/<action>'
             ],
         ],
-        */
+        /**
+         * Компонент для работы с текущей локацией
+         */
+        'location' => [
+            'class' => 'frontend\components\Location'
+        ],
+
+//        'urlManagerFrontend' => [
+//            // here is your frontend URL manager config
+//            'class' => 'yii\web\UrlManager',
+//            'baseUrl' => Yii::$app->params['staticDomain'],
+//            'enablePrettyUrl' => true,
+//            'enableStrictParsing' => true,
+//            'showScriptName' => false,
+//        ],
     ],
     'params' => $params,
+    'as access' => [
+        'class' => 'yii\filters\AccessControl',
+        'except' => ['site/login','site/error'],
+        'rules' => [
+            [
+                'allow' => true,
+                'roles' => ['@'],
+            ],
+        ],
+    ],
 ];

@@ -3,6 +3,9 @@
 /yii_test
 /yii_test.bat
 
+# composer file
+composer.phar
+
 # phpstorm project files
 .idea
 
@@ -33,3 +36,6 @@ phpunit.phar
 
 # vagrant runtime
 /.vagrant
+
+node_modules
+/frontend/web/dist
